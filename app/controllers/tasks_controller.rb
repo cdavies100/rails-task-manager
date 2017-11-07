@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
-  before_action :task_params, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all
   end
 
   def show
-    # do not need when before_action is set
+    # do not need when before_action is set_task
     @task = Task.find(params[:id])
   end
 
@@ -23,12 +23,12 @@ class TasksController < ApplicationController
   end
 
   def edit
-    # do not need in here when before_action is set
+    # do not need in here when before_action is set_task
     @task = Task.find(params[:id])
   end
 
   def update
-    # do not need first line when before_action is set
+    # do not need first line when before_action is set_task
     @task = Task.find(params[:id])
     @task.update(tasks_params)
     redirect_to task_path
@@ -38,12 +38,16 @@ class TasksController < ApplicationController
     task_to_delete = Task.find(params[:id])
     task_to_delete.destroy
     redirect_to tasks_path
-    # or when before_action is set
+    # or when before_action is set_task
     # @task.destroy
     # redirect_to tasks_path
   end
 
   private
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
   def tasks_params
     params.require(:task).permit(:name)
