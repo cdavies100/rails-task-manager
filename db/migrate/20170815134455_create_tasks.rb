@@ -7,3 +7,9 @@ class CreateTasks < ActiveRecord::Migration[5.0]
     end
   end
 end
+
+
+# batch 103 solution is with:
+# t.string :title
+# t.text :details
+# t.boolean :completed, default: false
